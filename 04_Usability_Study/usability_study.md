@@ -7,9 +7,16 @@
 
 **Objective:** Evaluate the usability of the Scout Tool with 3 users
 
-**Duration:** 15-20 minutes per participant
+**Duration:** ~30 minutes per participant
 
 **Method:** Think-aloud protocol with task-based testing
+
+**IMPORTANT:** Record each session (audio or video) using:
+- QuickTime (Mac) - File > New Screen Recording
+- Zoom (record meeting with yourself + participant)
+- Voice Memos app (audio only)
+
+**Write up notes within 24 hours of each session**
 
 ---
 
@@ -131,14 +138,31 @@
 2.
 3.
 
-### Issues Identified
-| Issue | Severity (High/Med/Low) | Suggested Fix |
-|-------|------------------------|---------------|
-| | | |
-| | | |
-| | | |
+### MoSCoW Prioritized Issues
 
-### Recommendations for Improvement
+**MUST Have (Critical - fix before submission)**
+| Issue | Suggested Fix |
+|-------|---------------|
+| | |
+| | |
+
+**SHOULD Have (Important - fix if time permits)**
+| Issue | Suggested Fix |
+|-------|---------------|
+| | |
+| | |
+
+**COULD Have (Nice to have)**
+| Issue | Suggested Fix |
+|-------|---------------|
+| | |
+
+**WON'T Have (Out of scope for this project)**
+| Issue | Reason |
+|-------|--------|
+| | |
+
+### Changes Made Based on Findings
 1.
 2.
 3.
