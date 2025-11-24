@@ -127,18 +127,19 @@ Football clubs spend **$7+ billion annually** on player transfers
 ## Stack
 
 ```
-Frontend:     Streamlit + Custom CSS
-Charts:       Plotly (interactive)
-ML:           scikit-learn (StandardScaler, cosine_similarity)
+Frontend:     HTML, CSS, JavaScript
+Charts:       Altair / Vega-Lite (interactive)
 Data:         Pandas, NumPy
-Deployment:   Streamlit Cloud (free tier)
+Tables:       DataTables.js
+Deployment:   Berkeley iSchool Server
 Version Ctrl: GitHub
 ```
 
-## Performance Optimizations
-- `@st.cache_data` for data loading
-- Pre-computed derived metrics
-- Lazy loading of visualizations
+## Key Features
+- Static HTML site (easy to deploy)
+- Vega-Embed for chart rendering
+- Altair's native interactivity (selections, filters)
+- Pre-generated JSON chart specs
 
 ---
 
@@ -201,9 +202,9 @@ Version Ctrl: GitHub
 
 ## Technical Learnings
 
-1. **Streamlit limitations** - Custom CSS required for professional look
-2. **Plotly flexibility** - Excellent for interactive sports viz
-3. **Path resolution** - Critical for cloud deployment
+1. **Altair strengths** - Native interactivity, easy to embed in HTML
+2. **Vega-Lite ecosystem** - Powerful grammar for visualization
+3. **Static site benefits** - Easy deployment on iSchool server
 
 ## Domain Insights
 
@@ -217,10 +218,10 @@ Version Ctrl: GitHub
 
 | Challenge | Solution |
 |-----------|----------|
-| Streamlit dark mode conflicts | Force light theme via CSS |
-| Relative paths fail on cloud | Use `Path(__file__).parent` |
+| Large JSON chart specs | Pre-generate and cache charts |
+| Data embedding in Vega | Export JSON data separately |
 | Large dataset performance | Filter to 450+ min players |
-| Dropdown styling | Override Baseweb component CSS |
+| Interactive table | Use DataTables.js with custom filters |
 
 ---
 

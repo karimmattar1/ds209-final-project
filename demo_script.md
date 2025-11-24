@@ -5,81 +5,85 @@
 
 ## INTRO (0:00 - 0:15)
 
-**[Screen: App homepage with Compare tab visible]**
+**[Screen: App homepage with Explore tab visible]**
 
-> "Hi, I'm Karim Mattar from UC Berkeley MIDS. This is Scout Tool - an interactive platform for analyzing and comparing football players across Europe's top 5 leagues. Let me show you how it works."
-
----
-
-## COMPARE TAB (0:15 - 1:00)
-
-**[Screen: Click on Compare tab if not already there]**
-
-> "The Compare feature lets you analyze two players side-by-side using radar charts."
-
-**[Action: Select "Forward" as position]**
-
-> "First, I'll filter by position - let's look at forwards."
-
-**[Action: Select "Erling Haaland" as Player 1]**
-
-> "I'll select Erling Haaland from Manchester City..."
-
-**[Action: Select "Kylian Mbappé" as Player 2]**
-
-> "...and compare him to Kylian Mbappe."
-
-**[Screen: Radar chart appears]**
-
-> "The radar chart shows percentile rankings across 10 key metrics. We can see Haaland dominates in goals and xG, while Mbappe excels in progressive carries and dribbling. This makes comparisons fair regardless of playing time."
+> "Hi, I'm Karim Mattar from UC Berkeley MIDS. This is Scout Tool - an interactive platform for analyzing and comparing football players across Europe's top 5 leagues. Built with Altair and Vega-Lite for DS209. Let me show you how it works."
 
 ---
 
-## SIMILAR PLAYERS TAB (1:00 - 1:35)
+## EXPLORE TAB (0:15 - 0:50)
 
-**[Action: Click "Similar" tab]**
+**[Screen: Show the main scatter explorer chart]**
 
-> "The Similar Players feature uses machine learning to find statistically similar players."
+> "The Explore feature lets you visualize the entire dataset with interactive scatter plots."
 
-**[Action: Select a player like "Mohamed Salah"]**
+**[Action: Hover over some points to show tooltips]**
 
-> "Let's find players similar to Mohamed Salah."
+> "Hovering shows player details - name, team, age, and key stats. I'm plotting Expected Goals against Actual Goals here."
 
-**[Screen: Results appear]**
+**[Action: Click on a position in the legend to filter]**
 
-> "The algorithm uses cosine similarity on position-specific metrics. These results show players with similar statistical profiles - useful for finding transfer targets or replacements. Notice we're finding players across different leagues who you might not have considered."
+> "Clicking on the legend filters by position. Watch how the chart updates to show only forwards."
 
----
+**[Action: Show the Age vs Performance chart]**
 
-## EXPLORE TAB (1:35 - 2:00)
-
-**[Action: Click "Explore" tab]**
-
-> "The Explore feature lets you visualize the entire dataset with custom scatter plots."
-
-**[Action: Set X-axis to "xG per 90" and Y-axis to "Goals per 90"]**
-
-> "I'll plot Expected Goals against Actual Goals. Players above the diagonal are outperforming their xG - they're clinical finishers."
-
-**[Action: Hover over an outlier point]**
-
-> "You can hover for details and filter by position, league, or age range."
+> "Below, we can see how goal contributions relate to age - notice the peak performance window in the mid-20s."
 
 ---
 
-## DATABASE TAB (2:00 - 2:15)
+## COMPARE TAB (0:50 - 1:30)
 
-**[Action: Click "Database" tab]**
+**[Action: Click "Compare" in navigation]**
 
-> "Finally, the Database provides a searchable table of all 2,500 players with filters for league, position, and age. You can export filtered results to CSV for further analysis."
+> "The Compare feature shows position-specific analysis."
+
+**[Action: Click on "Forwards" tab]**
+
+> "For forwards, I'm comparing xG against actual goals. Players above the diagonal line are clinical finishers - outperforming their expected output."
+
+**[Action: Click on a league in the legend]**
+
+> "Click any league in the legend to highlight those players. This makes cross-league comparison easy."
+
+**[Action: Click "Midfielders" tab]**
+
+> "For midfielders, we look at progressive passes versus shot-creating actions - key metrics for creative playmakers."
+
+**[Action: Scroll to league comparison]**
+
+> "The league comparison shows how playing styles differ. Notice the different distributions in tackles and pass completion across the Big 5."
 
 ---
 
-## OUTRO (2:15 - 2:30)
+## DATABASE TAB (1:30 - 2:00)
 
-**[Screen: About page or back to Compare]**
+**[Action: Click "Database" in navigation]**
 
-> "Scout Tool combines interactive visualization with machine learning to help scouts, analysts, and fans explore player data in new ways. The app is built with Streamlit and Plotly, using data from FBref's 2024-25 season. Thanks for watching!"
+> "The Database provides a searchable table of all 2,000 players."
+
+**[Action: Use the position filter to select "FW"]**
+
+> "Use filters for league, position, and age range. Let me filter for forwards..."
+
+**[Action: Use the search box to type "Haaland"]**
+
+> "...and search for Haaland. The table shows goals, assists, expected metrics, and minutes played."
+
+**[Action: Click column header to sort]**
+
+> "Click any column to sort. Here are the top scorers by goals."
+
+---
+
+## OUTRO (2:00 - 2:30)
+
+**[Action: Click "About" tab]**
+
+> "The About page explains the key metrics like xG and progressive carries, and shows our data source from FBref."
+
+**[Screen: Scroll to show author info]**
+
+> "Scout Tool combines interactive Altair visualizations with a searchable database to help fans, analysts, and students explore player data in new ways. Built for DS209 Data Visualization at UC Berkeley. The app uses Altair and Vega-Lite, hosted on the Berkeley iSchool server. Thanks for watching!"
 
 **[End screen]**
 
@@ -92,5 +96,6 @@
 3. **Zoom:** Browser at 100% zoom
 4. **Audio:** Record in quiet room, speak clearly
 5. **Pace:** Don't rush - let visualizations load
-6. **Software:** QuickTime (Mac), OBS, or Loom
-7. **Export:** MP4 format, H.264 codec
+6. **Interactions:** Pause briefly after each click
+7. **Software:** QuickTime (Mac), OBS, or Loom
+8. **Export:** MP4 format, H.264 codec

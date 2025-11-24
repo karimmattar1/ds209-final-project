@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <style>
+    #vis.vega-embed {
+      width: 100%;
+      display: flex;
+    }
+
+    #vis.vega-embed details,
+    #vis.vega-embed details summary {
+      position: relative;
+    }
+  </style>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vega-lite@5.20.1"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
+</head>
+<body>
+  <div id="vis"></div>
+  <script>
+    (function(vegaEmbed) {
+      var spec = {"config": {"view": {"continuousWidth": 300, "continuousHeight": 300}}, "data": {"name": "data-8a41e81716b5ce994844b4b60bc1d251"}, "mark": {"type": "bar"}, "encoding": {"color": {"field": "Position", "scale": {"domain": ["FW", "MF", "DF"], "range": ["#ef4444", "#3b82f6", "#8b5cf6"]}, "type": "nominal"}, "tooltip": [{"field": "Player", "type": "nominal"}, {"field": "Squad", "type": "nominal"}, {"field": "Gls", "type": "quantitative"}, {"field": "xG", "format": ".1f", "type": "quantitative"}], "x": {"field": "Gls", "title": "Goals", "type": "quantitative"}, "y": {"field": "Player", "sort": "-x", "title": "", "type": "nominal"}}, "height": 500, "title": "Top 20 Scorers (2024-25 Season)", "width": 600, "$schema": "https://vega.github.io/schema/vega-lite/v5.20.1.json", "datasets": {"data-8a41e81716b5ce994844b4b60bc1d251": [{"Player": "Kylian Mbapp\u00e9", "Squad": "Real Madrid", "Gls": 31, "xG": 25.9, "Position": "FW"}, {"Player": "Mohamed Salah", "Squad": "Liverpool", "Gls": 29, "xG": 25.2, "Position": "FW"}, {"Player": "Robert Lewandowski", "Squad": "Barcelona", "Gls": 27, "xG": 27.1, "Position": "FW"}, {"Player": "Harry Kane", "Squad": "Bayern Munich", "Gls": 26, "xG": 20.3, "Position": "FW"}, {"Player": "Mateo Retegui", "Squad": "Atalanta", "Gls": 25, "xG": 18.9, "Position": "FW"}, {"Player": "Alexander Isak", "Squad": "Newcastle Utd", "Gls": 23, "xG": 20.3, "Position": "FW"}, {"Player": "Erling Haaland", "Squad": "Manchester City", "Gls": 22, "xG": 22.0, "Position": "FW"}, {"Player": "Ante Budimir", "Squad": "Osasuna", "Gls": 21, "xG": 18.3, "Position": "FW"}, {"Player": "Ousmane Demb\u00e9l\u00e9", "Squad": "Paris S-G", "Gls": 21, "xG": 16.6, "Position": "FW"}, {"Player": "Mason Greenwood", "Squad": "Marseille", "Gls": 21, "xG": 16.3, "Position": "FW"}, {"Player": "Serhou Guirassy", "Squad": "Dortmund", "Gls": 21, "xG": 22.7, "Position": "FW"}, {"Player": "Patrik Schick", "Squad": "Leverkusen", "Gls": 21, "xG": 12.7, "Position": "FW"}, {"Player": "Bryan Mbeumo", "Squad": "Brentford", "Gls": 20, "xG": 12.3, "Position": "FW"}, {"Player": "Alexander S\u00f8rloth", "Squad": "Atl\u00e9tico Madrid", "Gls": 20, "xG": 16.8, "Position": "FW"}, {"Player": "Chris Wood", "Squad": "Nott'ham Forest", "Gls": 20, "xG": 13.4, "Position": "FW"}, {"Player": "Ayoze P\u00e9rez", "Squad": "Villarreal", "Gls": 19, "xG": 12.7, "Position": "FW"}, {"Player": "Yoane Wissa", "Squad": "Brentford", "Gls": 19, "xG": 18.5, "Position": "FW"}, {"Player": "Jonathan Burkardt", "Squad": "Mainz 05", "Gls": 18, "xG": 14.8, "Position": "FW"}, {"Player": "Raphinha", "Squad": "Barcelona", "Gls": 18, "xG": 19.2, "Position": "FW"}, {"Player": "Juli\u00e1n \u00c1lvarez", "Squad": "Atl\u00e9tico Madrid", "Gls": 17, "xG": 14.1, "Position": "FW"}]}};
+      var embedOpt = {"mode": "vega-lite"};
+
+      function showError(el, error){
+          el.innerHTML = ('<div style="color:red;">'
+                          + '<p>JavaScript Error: ' + error.message + '</p>'
+                          + "<p>This usually means there's a typo in your chart specification. "
+                          + "See the javascript console for the full traceback.</p>"
+                          + '</div>');
+          throw error;
+      }
+      const el = document.getElementById('vis');
+      vegaEmbed("#vis", spec, embedOpt)
+        .catch(error => showError(el, error));
+    })(vegaEmbed);
+
+  </script>
+</body>
+</html>
