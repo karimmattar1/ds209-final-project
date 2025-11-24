@@ -1,150 +1,45 @@
-# DS209 Final Project Proposal
+DS209 Final Project Proposal
 
-## Team Members
-- Karim Mattar (Solo Project)
+Karim Mattar
+UC Berkeley MIDS
 
----
 
-## Project Concept: Football Player Scout Tool
+PROJECT CONCEPT: FOOTBALL PLAYER SCOUT TOOL
 
-### Overview
-An interactive web-based visualization tool that helps users discover, compare, and analyze football (soccer) players across Europe's top 5 leagues. The tool enables data-driven player scouting by visualizing performance metrics, identifying similar players, and tracking statistical trends.
+I'm building an interactive web-based visualization tool that helps users discover, compare, and analyze football players across Europe's top 5 leagues. The tool enables data-driven player scouting by visualizing performance metrics, identifying similar players, and letting users explore statistical trends in an intuitive way.
 
-### Target Leagues
-- Premier League (England)
-- La Liga (Spain)
-- Bundesliga (Germany)
-- Serie A (Italy)
-- Ligue 1 (France)
+The leagues covered are the Premier League (England), La Liga (Spain), Bundesliga (Germany), Serie A (Italy), and Ligue 1 (France).
 
----
 
-## Target Users
+TARGET USERS
 
-### Primary Users
-1. **Fantasy Football Managers** - Looking for undervalued players, comparing options, tracking form
-2. **Casual Fans** - Wanting to understand player performance beyond goals/assists
-3. **Data-curious Football Enthusiasts** - Exploring advanced metrics like xG, progressive passes, etc.
+The primary users are fantasy football managers looking for undervalued players and wanting to compare options, casual fans who want to understand player performance beyond just goals and assists, and data-curious football enthusiasts interested in exploring advanced metrics like expected goals and progressive passes.
 
-### Secondary Users
-- Amateur scouts and analysts
-- Football bloggers/content creators
-- Students studying sports analytics
+Secondary users include amateur scouts and analysts, football bloggers and content creators, and students studying sports analytics.
 
----
 
-## Key Tasks Users Will Perform
+TASKS USERS WILL PERFORM
 
-1. **Compare Players** - Select 2-4 players and view side-by-side radar charts showing key metrics
-2. **Filter & Discover** - Filter players by position, age, league, team, and statistical thresholds
-3. **Find Similar Players** - Select a player and discover statistically similar alternatives (useful for finding budget options)
-4. **Explore Metrics** - Understand what advanced stats mean (xG, progressive carries, etc.) through interactive tooltips
-5. **Analyze by Position** - View position-specific metrics (e.g., save % for goalkeepers, tackle success for defenders)
+Users will be able to compare players by selecting two players and viewing side-by-side radar charts showing key metrics with percentile rankings. They can filter and discover players by position, age, league, team, and statistical thresholds. The tool lets users find similar players by selecting any player and discovering statistically similar alternatives, which is useful for finding budget options or replacement targets. Users can explore metrics through interactive scatter plots and understand what advanced stats mean through the visualizations. Finally, they can analyze players by position, viewing position-specific metrics that matter most for each role.
 
----
 
-## Example Insights
+EXAMPLE INSIGHTS
 
-1. **"Which young midfielders (<23) have the best xG+xA per 90 minutes?"**
-   - Insight: Identify breakout talents before they become household names
+The visualization will help answer questions like "Which young midfielders under 23 have the best expected goal contributions per 90 minutes?" to identify breakout talents before they become household names. Users can ask "How does Salah compare to other Premier League wingers this season?" to contextualize star players against their peers. They can explore "Which defenders provide the most progressive passing?" to find ball-playing center-backs for possession-based tactics. And they can discover "Who are the most clinical finishers outperforming their expected goals?" to find players who convert chances at elite rates.
 
-2. **"How does Salah compare to other Premier League wingers this season?"**
-   - Insight: Contextualize star players against their peers using radar charts
 
-3. **"Which defenders provide the most progressive passing?"**
-   - Insight: Find ball-playing center-backs for possession-based tactics
+DATA SOURCE
 
-4. **"Who are the most undervalued players based on performance vs. playing time?"**
-   - Insight: Discover hidden gems getting limited minutes but excelling when they play
+The primary dataset is Football Players Stats 2024-2025 from Kaggle, originally sourced from FBref (Football Reference). It contains over 250 columns of statistics for approximately 2,500 players and is updated weekly in CSV format.
 
----
+The key metrics available include basic information like name, age, position, team, league, and nationality. Playing time metrics include matches, starts, minutes, and 90s played. Attacking metrics cover goals, assists, expected goals, expected assists, shots, and shot accuracy. Passing metrics include pass completion percentage, progressive passes, and key passes. Defending metrics cover tackles, interceptions, blocks, and clearances. Possession metrics include touches, carries, progressive carries, and take-ons.
 
-## Data Source
 
-### Primary Dataset
-**Football Players Stats (2024-2025)** - Kaggle
-- Source: https://www.kaggle.com/datasets/hubertsidorowicz/football-players-stats-2024-2025
-- Origin: FBref (Football Reference)
-- Size: 250+ columns, ~2500 players
-- Update frequency: Weekly
-- Format: CSV
+PROPOSED VISUALIZATIONS
 
-### Key Metrics Available
-| Category | Example Metrics |
-|----------|-----------------|
-| Basic | Name, Age, Position, Team, League, Nationality |
-| Playing Time | Matches, Starts, Minutes, 90s played |
-| Attacking | Goals, Assists, xG, xAG, Shots, Shot accuracy |
-| Passing | Pass completion %, Progressive passes, Key passes |
-| Defending | Tackles, Interceptions, Blocks, Clearances |
-| Possession | Touches, Carries, Progressive carries, Take-ons |
-| Goalkeeping | Save %, Clean sheets, Goals conceded, xG prevented |
+The tool will feature radar charts for multi-dimensional player comparison, scatter plots for two-metric comparisons with player labels, player cards showing summary stats with percentile rankings, sortable and filterable data tables, and a similar players feature using statistical clustering.
 
----
 
-## Proposed Visualizations
+TECHNOLOGY STACK
 
-1. **Radar/Spider Charts** - Multi-dimensional player comparison
-2. **Scatter Plots** - Two-metric comparisons with player labels (e.g., xG vs Goals)
-3. **Player Cards** - Summary view with key stats and percentile rankings
-4. **Data Tables** - Sortable, filterable player lists
-5. **Distribution Charts** - Show where a player ranks vs. peers
-6. **Similar Players Network** - Visual clustering of statistically similar players
-
----
-
-## Technology Stack
-
-| Component | Tool |
-|-----------|------|
-| Data Processing | Python (Pandas) |
-| Exploratory Viz | Altair / Tableau |
-| Web Framework | Observable / D3.js |
-| Hosting | DigitalOcean / GitHub Pages |
-
----
-
-## Team Charter
-
-### Communication
-- Primary: Slack/Discord group chat
-- Secondary: Email for formal submissions
-- Response time: Within 24 hours
-
-### Meetings
-- Weekly sync: [Day/Time TBD]
-- Location: Zoom / In-person as needed
-- Ad-hoc meetings as needed before deadlines
-
-### Workload Balance
-- Tasks assigned based on strengths and availability
-- Rotate presentation responsibilities
-- All members contribute to usability testing (3 subjects each)
-
-### Conflict Resolution
-1. Discuss openly in team meeting
-2. If unresolved, seek instructor guidance
-3. Document all major decisions
-
-### Accountability
-- Missed deadline = team discussion within 24 hours
-- Consistent issues = escalate to instructor
-
----
-
-## Timeline (Rough)
-
-| Milestone | Deliverable |
-|-----------|-------------|
-| Week 1-2 | Exploratory Visualization |
-| Week 3-4 | Prototype Development |
-| Week 5 | Midterm Presentation |
-| Week 6-7 | Usability Testing |
-| Week 8 | Final Presentation & Website |
-
----
-
-## Questions for Instructor
-1. Is the scope appropriate for a team of [X] members?
-2. Any concerns with using Kaggle-sourced FBref data?
-3. Suggestions for making the "similar players" feature more robust?
+Data processing will use Python with Pandas. The web framework will be Streamlit with Plotly for interactive visualizations. The application will be hosted on Streamlit Cloud.
