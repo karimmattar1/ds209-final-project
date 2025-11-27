@@ -3,796 +3,129 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Scout Tool - Football Player Analysis</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <title>Football Scout Tool - Home</title>
+    <link rel="stylesheet" href="static/css/style.css">
     <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
     <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
     <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
-    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
-    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-        }
-
-        body {
-            background: linear-gradient(135deg, #ecfdf5 0%, #ffffff 50%, #f0fdf4 100%);
-            min-height: 100vh;
-            color: #374151;
-        }
-
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 24px;
-        }
-
-        /* Header */
-        header {
-            background: white;
-            border-bottom: 1px solid #e5e7eb;
-            padding: 16px 0;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-
-        .header-content {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .logo-icon {
-            font-size: 2rem;
-        }
-
-        .logo-text {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: #166534;
-        }
-
-        nav {
-            display: flex;
-            gap: 8px;
-        }
-
-        .nav-btn {
-            background: white;
-            color: #166534;
-            border: 1px solid #d1d5db;
-            border-radius: 50px;
-            padding: 10px 20px;
-            font-weight: 600;
-            font-size: 0.9rem;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-
-        .nav-btn:hover {
-            background: #f0fdf4;
-            border-color: #166534;
-        }
-
-        .nav-btn.active {
-            background: #166534;
-            color: white;
-            border-color: #166534;
-        }
-
-        /* Main content */
-        main {
-            padding: 32px 0;
-        }
-
-        .page {
-            display: none;
-        }
-
-        .page.active {
-            display: block;
-        }
-
-        .page-title {
-            font-size: 2rem;
-            font-weight: 700;
-            color: #166534;
-            margin-bottom: 8px;
-        }
-
-        .page-subtitle {
-            color: #6b7280;
-            font-size: 1.1rem;
-            margin-bottom: 24px;
-        }
-
-        /* Cards */
-        .card {
-            background: white;
-            border-radius: 12px;
-            padding: 24px;
-            margin-bottom: 24px;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-            border: 1px solid #e5e7eb;
-        }
-
-        .card h3 {
-            color: #166534;
-            margin-bottom: 16px;
-            font-size: 1.25rem;
-        }
-
-        /* Filters */
-        .filters {
-            display: flex;
-            gap: 16px;
-            flex-wrap: wrap;
-            align-items: flex-end;
-        }
-
-        .filter-group {
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-        }
-
-        .filter-group label {
-            font-size: 0.875rem;
-            font-weight: 600;
-            color: #166534;
-        }
-
-        .filter-group select,
-        .filter-group input {
-            padding: 10px 14px;
-            border: 1px solid #d1d5db;
-            border-radius: 8px;
-            font-size: 0.9rem;
-            min-width: 150px;
-            background: white;
-        }
-
-        .filter-group select:focus,
-        .filter-group input:focus {
-            outline: none;
-            border-color: #16a34a;
-            box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.15);
-        }
-
-        /* Pill badge */
-        .pill {
-            display: inline-flex;
-            background: #dcfce7;
-            color: #166534;
-            padding: 8px 16px;
-            border-radius: 50px;
-            font-weight: 600;
-            font-size: 0.875rem;
-            margin-bottom: 16px;
-        }
-
-        /* Chart container */
-        .chart-container {
-            background: white;
-            border-radius: 12px;
-            padding: 24px;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-            border: 1px solid #e5e7eb;
-            margin-bottom: 24px;
-        }
-
-        .chart-container h3 {
-            color: #166534;
-            margin-bottom: 16px;
-        }
-
-        /* Grid layout */
-        .grid-2 {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 24px;
-        }
-
-        @media (max-width: 768px) {
-            .grid-2 {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        /* Player cards */
-        .player-card {
-            background: white;
-            border-radius: 12px;
-            padding: 20px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            border: 1px solid #e5e7eb;
-        }
-
-        .player-card h4 {
-            color: #166534;
-            margin-bottom: 8px;
-        }
-
-        .player-card .stat {
-            display: flex;
-            justify-content: space-between;
-            padding: 8px 0;
-            border-bottom: 1px solid #f3f4f6;
-        }
-
-        .player-card .stat:last-child {
-            border-bottom: none;
-        }
-
-        .stat-label {
-            color: #6b7280;
-        }
-
-        .stat-value {
-            font-weight: 600;
-            color: #166534;
-        }
-
-        .stat-chip {
-            display: inline-block;
-            background: #dcfce7;
-            color: #166534;
-            padding: 4px 10px;
-            border-radius: 6px;
-            font-size: 0.8rem;
-            font-weight: 600;
-        }
-
-        /* Table styling */
-        #player-table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        #player-table th {
-            background: #166534;
-            color: white;
-            padding: 12px;
-            text-align: left;
-            font-weight: 600;
-        }
-
-        #player-table td {
-            padding: 12px;
-            border-bottom: 1px solid #e5e7eb;
-        }
-
-        #player-table tbody tr:hover {
-            background: #f0fdf4;
-        }
-
-        .dataTables_wrapper .dataTables_filter input {
-            padding: 8px 12px;
-            border: 1px solid #d1d5db;
-            border-radius: 8px;
-            margin-left: 8px;
-        }
-
-        .dataTables_wrapper .dataTables_length select {
-            padding: 8px;
-            border: 1px solid #d1d5db;
-            border-radius: 8px;
-        }
-
-        /* About page */
-        .about-grid {
-            display: grid;
-            grid-template-columns: 2fr 1fr;
-            gap: 24px;
-        }
-
-        @media (max-width: 900px) {
-            .about-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        .about-card ul {
-            padding-left: 20px;
-        }
-
-        .about-card li {
-            padding: 8px 0;
-        }
-
-        .about-card table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        .about-card td {
-            padding: 12px 0;
-            border-bottom: 1px solid #e5e7eb;
-        }
-
-        .about-card td:first-child {
-            font-weight: 600;
-            color: #166534;
-            width: 40%;
-        }
-
-        /* Tabs */
-        .tabs {
-            display: flex;
-            gap: 4px;
-            margin-bottom: 20px;
-            background: #f3f4f6;
-            padding: 4px;
-            border-radius: 10px;
-            width: fit-content;
-        }
-
-        .tab-btn {
-            background: transparent;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 8px;
-            font-weight: 600;
-            color: #6b7280;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        .tab-btn.active {
-            background: white;
-            color: #166534;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-        }
-
-        .tab-content {
-            display: none;
-        }
-
-        .tab-content.active {
-            display: block;
-        }
-
-        /* Footer */
-        footer {
-            background: white;
-            border-top: 1px solid #e5e7eb;
-            padding: 24px 0;
-            margin-top: 48px;
-            text-align: center;
-            color: #6b7280;
-        }
-
-        footer a {
-            color: #166534;
-            text-decoration: none;
-        }
-
-        footer a:hover {
-            text-decoration: underline;
-        }
-    </style>
 </head>
 <body>
-    <header>
-        <div class="container header-content">
-            <div class="logo">
-                <span class="logo-icon">&#9917;</span>
-                <span class="logo-text">Scout Tool</span>
+    <nav class="navbar">
+        <div class="container">
+            <h1 class="logo">⚽ Football Scout Tool</h1>
+            <ul class="nav-links">
+                <li><a href="index.html" class="active">Home</a></li>
+                <li><a href="compare.html">Compare Players</a></li>
+                <li><a href="explore.html">Explore</a></li>
+                <li><a href="similar.html">Similar Players</a></li>
+                <li><a href="analysis.html">Analysis</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <div class="container">
+            <h1>Discover, Compare, and Analyze Football Players</h1>
+            <p class="subtitle">Data-driven scouting across Europe's Top 5 Leagues</p>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <h3 id="total-players">2,000+</h3>
+                    <p>Players</p>
+                </div>
+                <div class="stat-card">
+                    <h3>5</h3>
+                    <p>Leagues</p>
+                </div>
+                <div class="stat-card">
+                    <h3>250+</h3>
+                    <p>Statistics</p>
+                </div>
+                <div class="stat-card">
+                    <h3>2024-25</h3>
+                    <p>Season</p>
+                </div>
             </div>
-            <nav>
-                <button class="nav-btn active" data-page="explore">Explore</button>
-                <button class="nav-btn" data-page="compare">Compare</button>
-                <button class="nav-btn" data-page="database">Database</button>
-                <button class="nav-btn" data-page="about">About</button>
-            </nav>
         </div>
     </header>
 
     <main class="container">
-        <!-- EXPLORE PAGE -->
-        <section id="explore" class="page active">
-            <h1 class="page-title">Player Explorer</h1>
-            <p class="page-subtitle">Visualize player distributions across different metrics. Click legend items to filter.</p>
-
-            <div class="chart-container">
-                <div id="scatter-chart"></div>
-            </div>
-
-            <div class="grid-2">
-                <div class="chart-container">
-                    <h3>Age vs Goal Contributions</h3>
-                    <div id="age-chart"></div>
+        <section class="features">
+            <h2>What Can You Do?</h2>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h3>Compare Players</h3>
+                    <p>Side-by-side radar charts showing key metrics with percentile rankings</p>
+                    <a href="compare.html" class="btn">Start Comparing</a>
                 </div>
-                <div class="chart-container">
-                    <h3>Top 20 Scorers</h3>
-                    <div id="scorers-chart"></div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔍</div>
+                    <h3>Explore Data</h3>
+                    <p>Interactive scatter plots with filters by position, age, league, and team</p>
+                    <a href="explore.html" class="btn">Explore Now</a>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🎯</div>
+                    <h3>Find Similar Players</h3>
+                    <p>Discover statistically similar alternatives using advanced metrics</p>
+                    <a href="similar.html" class="btn">Find Players</a>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📈</div>
+                    <h3>Position Analysis</h3>
+                    <p>View position-specific metrics that matter most for each role</p>
+                    <a href="analysis.html" class="btn">View Analysis</a>
                 </div>
             </div>
         </section>
 
-        <!-- COMPARE PAGE -->
-        <section id="compare" class="page">
-            <h1 class="page-title">Position Comparison</h1>
-            <p class="page-subtitle">Compare players within their position groups. Click legend to filter by league.</p>
-
-            <div class="tabs">
-                <button class="tab-btn active" data-tab="fw">Forwards</button>
-                <button class="tab-btn" data-tab="mf">Midfielders</button>
-                <button class="tab-btn" data-tab="df">Defenders</button>
-            </div>
-
-            <div id="fw-tab" class="tab-content active">
-                <div class="chart-container">
-                    <h3>Forwards: Expected Goals vs Actual Goals</h3>
-                    <p style="color: #6b7280; margin-bottom: 16px;">Players above the diagonal are outperforming their xG (clinical finishers)</p>
-                    <div id="fw-chart"></div>
+        <section class="leagues">
+            <h2>Leagues Covered</h2>
+            <div class="league-grid">
+                <div class="league-card">
+                    <h3>🏴󠁧󠁢󠁥󠁮󠁧󠁿 Premier League</h3>
+                    <p>England</p>
                 </div>
-            </div>
-
-            <div id="mf-tab" class="tab-content">
-                <div class="chart-container">
-                    <h3>Midfielders: Progressive Passes vs Shot Creating Actions</h3>
-                    <p style="color: #6b7280; margin-bottom: 16px;">Identifies creative midfielders who combine passing with chance creation</p>
-                    <div id="mf-chart"></div>
+                <div class="league-card">
+                    <h3>🇪🇸 La Liga</h3>
+                    <p>Spain</p>
                 </div>
-            </div>
-
-            <div id="df-tab" class="tab-content">
-                <div class="chart-container">
-                    <h3>Defenders: Tackles vs Interceptions</h3>
-                    <p style="color: #6b7280; margin-bottom: 16px;">Different defensive profiles: proactive tacklers vs readers of the game</p>
-                    <div id="df-chart"></div>
+                <div class="league-card">
+                    <h3>🇩🇪 Bundesliga</h3>
+                    <p>Germany</p>
                 </div>
-            </div>
-
-            <div class="chart-container">
-                <h3>League Comparison</h3>
-                <p style="color: #6b7280; margin-bottom: 16px;">How do playing styles differ across Europe's top 5 leagues?</p>
-                <div id="league-chart"></div>
+                <div class="league-card">
+                    <h3>🇮🇹 Serie A</h3>
+                    <p>Italy</p>
+                </div>
+                <div class="league-card">
+                    <h3>🇫🇷 Ligue 1</h3>
+                    <p>France</p>
+                </div>
             </div>
         </section>
 
-        <!-- DATABASE PAGE -->
-        <section id="database" class="page">
-            <h1 class="page-title">Player Database</h1>
-            <p class="page-subtitle">Search and filter the complete player database (2024-25 season)</p>
-
-            <div class="card">
-                <div class="filters" style="margin-bottom: 20px;">
-                    <div class="filter-group">
-                        <label for="filter-league">League</label>
-                        <select id="filter-league">
-                            <option value="">All Leagues</option>
-                            <option value="Premier League">Premier League</option>
-                            <option value="La Liga">La Liga</option>
-                            <option value="Bundesliga">Bundesliga</option>
-                            <option value="Serie A">Serie A</option>
-                            <option value="Ligue 1">Ligue 1</option>
-                        </select>
-                    </div>
-                    <div class="filter-group">
-                        <label for="filter-position">Position</label>
-                        <select id="filter-position">
-                            <option value="">All Positions</option>
-                            <option value="FW">Forward</option>
-                            <option value="MF">Midfielder</option>
-                            <option value="DF">Defender</option>
-                            <option value="GK">Goalkeeper</option>
-                        </select>
-                    </div>
-                    <div class="filter-group">
-                        <label for="filter-age-min">Min Age</label>
-                        <input type="number" id="filter-age-min" value="16" min="16" max="45">
-                    </div>
-                    <div class="filter-group">
-                        <label for="filter-age-max">Max Age</label>
-                        <input type="number" id="filter-age-max" value="40" min="16" max="45">
-                    </div>
-                </div>
-
-                <div id="player-count" class="pill">Loading players...</div>
-
-                <table id="player-table" class="display">
-                    <thead>
-                        <tr>
-                            <th>Player</th>
-                            <th>Team</th>
-                            <th>League</th>
-                            <th>Pos</th>
-                            <th>Age</th>
-                            <th>Goals</th>
-                            <th>Assists</th>
-                            <th>G+A</th>
-                            <th>xG</th>
-                            <th>xAG</th>
-                            <th>Minutes</th>
-                        </tr>
-                    </thead>
-                    <tbody></tbody>
-                </table>
-            </div>
-        </section>
-
-        <!-- ABOUT PAGE -->
-        <section id="about" class="page">
-            <h1 class="page-title">About Scout Tool</h1>
-            <p class="page-subtitle">Learn about the visualization, data, and methodology</p>
-
-            <div class="about-grid">
-                <div>
-                    <div class="card about-card">
-                        <h3>Visualization Goals</h3>
-                        <p style="margin-bottom: 16px; line-height: 1.7;">
-                            This tool enables <strong>data-driven player scouting</strong> by providing interactive visualizations that help users:
-                        </p>
-                        <ul>
-                            <li>Explore player distributions across performance metrics</li>
-                            <li>Compare players within position groups by league</li>
-                            <li>Search and filter the complete player database</li>
-                            <li>Understand advanced metrics like xG and progressive passes</li>
-                        </ul>
-                    </div>
-
-                    <div class="card about-card">
-                        <h3>Key Metrics Explained</h3>
-                        <table>
-                            <tr>
-                                <td>xG (Expected Goals)</td>
-                                <td>Quality of scoring chances based on shot location and type</td>
-                            </tr>
-                            <tr>
-                                <td>xAG (Expected Assists)</td>
-                                <td>Quality of chances created for teammates</td>
-                            </tr>
-                            <tr>
-                                <td>Progressive Carries</td>
-                                <td>Ball carries moving significantly toward opponent's goal</td>
-                            </tr>
-                            <tr>
-                                <td>Progressive Passes</td>
-                                <td>Passes that advance the ball significantly toward goal</td>
-                            </tr>
-                            <tr>
-                                <td>SCA</td>
-                                <td>Shot-Creating Actions - actions leading directly to shots</td>
-                            </tr>
-                        </table>
-                    </div>
-
-                    <div class="card about-card">
-                        <h3>Technology Stack</h3>
-                        <p style="margin-bottom: 16px;"><strong>Built using Altair</strong> - the primary visualization tool for this course.</p>
-                        <table>
-                            <tr>
-                                <td>Visualization</td>
-                                <td>Altair / Vega-Lite</td>
-                            </tr>
-                            <tr>
-                                <td>Data Processing</td>
-                                <td>Python, Pandas, NumPy</td>
-                            </tr>
-                            <tr>
-                                <td>Frontend</td>
-                                <td>HTML, CSS, JavaScript</td>
-                            </tr>
-                            <tr>
-                                <td>Hosting</td>
-                                <td>Berkeley iSchool Server</td>
-                            </tr>
-                        </table>
-                    </div>
-                </div>
-
-                <div>
-                    <div class="card about-card">
-                        <h3>Intended Audience</h3>
-                        <ul>
-                            <li><strong>Football Fans</strong> - understand player performance</li>
-                            <li><strong>Data Enthusiasts</strong> - explore advanced metrics</li>
-                            <li><strong>Amateur Analysts</strong> - compare players across leagues</li>
-                            <li><strong>Students</strong> - studying sports analytics</li>
-                        </ul>
-                    </div>
-
-                    <div class="card about-card">
-                        <h3>Data Source</h3>
-                        <table>
-                            <tr>
-                                <td>Source</td>
-                                <td>FBref via Kaggle</td>
-                            </tr>
-                            <tr>
-                                <td>Season</td>
-                                <td>2024-25</td>
-                            </tr>
-                            <tr>
-                                <td>Coverage</td>
-                                <td>Big 5 European Leagues</td>
-                            </tr>
-                            <tr>
-                                <td>Players</td>
-                                <td>~2,000 (450+ minutes)</td>
-                            </tr>
-                        </table>
-                        <p style="margin-top: 12px;">
-                            <a href="https://www.kaggle.com/datasets/hubertsidorowicz/football-players-stats-2024-2025" target="_blank">View dataset on Kaggle</a>
-                        </p>
-                    </div>
-
-                    <div class="card about-card" style="text-align: center;">
-                        <p style="color: #6b7280; font-size: 0.9rem; margin-bottom: 8px;">Created by</p>
-                        <h3 style="margin-bottom: 4px;">Karim Mattar</h3>
-                        <p style="color: #6b7280;">UC Berkeley MIDS<br>DS209 Data Visualization</p>
-                    </div>
-                </div>
-            </div>
+        <section class="about">
+            <h2>About This Tool</h2>
+            <p>
+                This interactive visualization tool helps football fans, analysts, and enthusiasts discover and compare professional football (soccer) players using data-driven insights. The tool visualizes performance metrics from the 2024-2025 season across Europe's top 5 leagues.
+            </p>
+            <p>
+                <strong>Data Source:</strong> <a href="https://www.kaggle.com/datasets/hubertsidorowicz/football-players-stats-2024-2025" target="_blank">Football Players Stats 2024-2025</a> (FBref via Kaggle)
+            </p>
+            <p>
+                <strong>Created by:</strong> Karim Mattar | UC Berkeley MIDS | DS209 Final Project
+            </p>
         </section>
     </main>
 
     <footer>
         <div class="container">
-            <p>DS209 Data Visualization | UC Berkeley School of Information</p>
-            <p style="margin-top: 8px;">
-                <a href="https://www.kaggle.com/datasets/hubertsidorowicz/football-players-stats-2024-2025" target="_blank">Data Source</a> |
-                <a href="https://github.com/karimmattar1/ds209-final-project" target="_blank">GitHub</a>
-            </p>
+            <p>&copy; 2024 Football Scout Tool | DS209 Final Project | UC Berkeley</p>
+            <p>Data: <a href="https://www.kaggle.com/datasets/hubertsidorowicz/football-players-stats-2024-2025" target="_blank">Kaggle</a> | Source: FBref</p>
         </div>
     </footer>
 
-    <script>
-        // Navigation
-        document.querySelectorAll('.nav-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                // Update nav buttons
-                document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-
-                // Update pages
-                const pageId = btn.dataset.page;
-                document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-                document.getElementById(pageId).classList.add('active');
-            });
-        });
-
-        // Tab navigation
-        document.querySelectorAll('.tab-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-
-                const tabId = btn.dataset.tab + '-tab';
-                document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
-                document.getElementById(tabId).classList.add('active');
-            });
-        });
-
-        // Vega-Lite embed options
-        const vegaOptions = {
-            actions: false,
-            renderer: 'canvas',
-            theme: 'default'
-        };
-
-        // Load charts
-        async function loadCharts() {
-            try {
-                // Scatter explorer
-                const scatterSpec = await fetch('charts/scatter_explorer.json').then(r => r.json());
-                vegaEmbed('#scatter-chart', scatterSpec, vegaOptions);
-
-                // Age chart
-                const ageSpec = await fetch('charts/age_performance.json').then(r => r.json());
-                vegaEmbed('#age-chart', ageSpec, {...vegaOptions, width: 500, height: 350});
-
-                // Top scorers
-                const scorersSpec = await fetch('charts/top_scorers.json').then(r => r.json());
-                vegaEmbed('#scorers-chart', scorersSpec, {...vegaOptions, width: 500, height: 450});
-
-                // Position charts
-                const fwSpec = await fetch('charts/fw_comparison.json').then(r => r.json());
-                vegaEmbed('#fw-chart', fwSpec, vegaOptions);
-
-                const mfSpec = await fetch('charts/mf_comparison.json').then(r => r.json());
-                vegaEmbed('#mf-chart', mfSpec, vegaOptions);
-
-                const dfSpec = await fetch('charts/df_comparison.json').then(r => r.json());
-                vegaEmbed('#df-chart', dfSpec, vegaOptions);
-
-                // League comparison
-                const leagueSpec = await fetch('charts/league_comparison.json').then(r => r.json());
-                vegaEmbed('#league-chart', leagueSpec, vegaOptions);
-
-            } catch (error) {
-                console.error('Error loading charts:', error);
-            }
-        }
-
-        // Load player data for table
-        let playersData = [];
-        let dataTable;
-
-        async function loadPlayerData() {
-            try {
-                playersData = await fetch('charts/players_data.json').then(r => r.json());
-
-                // Initialize DataTable
-                dataTable = $('#player-table').DataTable({
-                    data: playersData,
-                    columns: [
-                        { data: 'Player' },
-                        { data: 'Squad' },
-                        { data: 'League' },
-                        { data: 'Position' },
-                        { data: 'Age' },
-                        { data: 'Gls' },
-                        { data: 'Ast' },
-                        { data: 'G+A' },
-                        { data: 'xG', render: v => v ? v.toFixed(1) : '0.0' },
-                        { data: 'xAG', render: v => v ? v.toFixed(1) : '0.0' },
-                        { data: 'Min', render: v => v ? v.toLocaleString() : '0' }
-                    ],
-                    order: [[7, 'desc']], // Sort by G+A
-                    pageLength: 25,
-                    lengthMenu: [10, 25, 50, 100]
-                });
-
-                updatePlayerCount();
-
-            } catch (error) {
-                console.error('Error loading player data:', error);
-            }
-        }
-
-        function updatePlayerCount() {
-            const count = dataTable.rows({ filter: 'applied' }).count();
-            document.getElementById('player-count').textContent = `${count} players found`;
-        }
-
-        // Filter handlers
-        function applyFilters() {
-            const league = document.getElementById('filter-league').value;
-            const position = document.getElementById('filter-position').value;
-            const ageMin = parseInt(document.getElementById('filter-age-min').value) || 16;
-            const ageMax = parseInt(document.getElementById('filter-age-max').value) || 45;
-
-            $.fn.dataTable.ext.search.pop(); // Remove previous filter
-            $.fn.dataTable.ext.search.push(function(settings, data, dataIndex) {
-                const rowLeague = data[2];
-                const rowPosition = data[3];
-                const rowAge = parseInt(data[4]);
-
-                const leagueMatch = !league || rowLeague === league;
-                const positionMatch = !position || rowPosition === position;
-                const ageMatch = rowAge >= ageMin && rowAge <= ageMax;
-
-                return leagueMatch && positionMatch && ageMatch;
-            });
-
-            dataTable.draw();
-            updatePlayerCount();
-        }
-
-        // Add filter event listeners
-        document.getElementById('filter-league').addEventListener('change', applyFilters);
-        document.getElementById('filter-position').addEventListener('change', applyFilters);
-        document.getElementById('filter-age-min').addEventListener('change', applyFilters);
-        document.getElementById('filter-age-max').addEventListener('change', applyFilters);
-
-        // Initialize
-        loadCharts();
-        loadPlayerData();
-    </script>
+    <script src="static/js/app.js"></script>
 </body>
 </html>

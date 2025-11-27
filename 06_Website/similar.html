@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Similar Players - Football Scout Tool</title>
+    <link rel="stylesheet" href="static/css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <h1 class="logo">⚽ Football Scout Tool</h1>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="compare.html">Compare Players</a></li>
+                <li><a href="explore.html">Explore</a></li>
+                <li><a href="similar.html" class="active">Similar Players</a></li>
+                <li><a href="analysis.html">Analysis</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="container">
+        <section class="page-header">
+            <h1>Find Similar Players</h1>
+            <p>Discover statistically similar players using advanced metrics and machine learning</p>
+        </section>
+
+        <section class="filters-section">
+            <h2>Search for a Player</h2>
+            <div class="filter-grid">
+                <div class="filter-group">
+                    <label for="player-search">Player Name</label>
+                    <input type="text" id="player-search" list="player-list-similar" placeholder="Search player name...">
+                </div>
+                <div class="filter-group">
+                    <label for="position-filter-similar">Filter by Position</label>
+                    <select id="position-filter-similar">
+                        <option value="true" selected>Same position only</option>
+                        <option value="false">All positions</option>
+                    </select>
+                </div>
+            </div>
+            <datalist id="player-list-similar"></datalist>
+            <button class="btn" onclick="findSimilarPlayers()">Find Similar Players</button>
+        </section>
+
+        <section id="similar-result" style="display:none;">
+            <div class="info-box">
+                <h3>Similarity Analysis</h3>
+                <p id="similarity-description"></p>
+            </div>
+
+            <div class="visualization-section">
+                <div id="similar-players-chart"></div>
+            </div>
+
+            <div id="similar-players-list"></div>
+        </section>
+
+        <section class="info-box">
+            <h3>How Similar Players Are Found</h3>
+            <ul>
+                <li><strong>Statistical Comparison:</strong> Uses cosine similarity across multiple performance metrics</li>
+                <li><strong>Key Metrics:</strong> Goals, assists, xG, xAG, progressive carries, tackles, passing accuracy, and more</li>
+                <li><strong>Position Filtering:</strong> Optionally filter to find similar players in the same position</li>
+                <li><strong>Use Cases:</strong> Finding transfer alternatives, understanding player profiles, discovering undervalued talents</li>
+            </ul>
+        </section>
+
+        <section class="visualization-section">
+            <h2>Example: Player Distribution by Position</h2>
+            <p>Interactive scatter plot showing how players compare across different metrics. Hover to see details.</p>
+            <iframe src="static/charts/league_scatter.html" width="100%" height="600" frameborder="0"></iframe>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Football Scout Tool | DS209 Final Project | UC Berkeley</p>
+        </div>
+    </footer>
+
+    <script src="static/js/app.js"></script>
+    <script src="static/js/similar.js"></script>
+</body>
+</html>

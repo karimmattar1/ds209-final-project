@@ -4,7 +4,7 @@ Karim Mattar
 UC Berkeley MIDS
 
 
-PROJECT CONCEPT: FOOTBALL PLAYER SCOUT TOOL
+PROJECT CONCEPT: FOOTBALL (SOCCER) PLAYER SCOUT TOOL
 
 I'm building an interactive web-based visualization tool that helps users discover, compare, and analyze professional football (soccer) players across Europe's top 5 leagues. The tool enables data-driven player scouting by visualizing performance metrics, identifying similar players, and letting users explore statistical trends in an intuitive way.
 

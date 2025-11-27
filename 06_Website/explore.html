@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Player Explorer - Football Scout Tool</title>
+    <link rel="stylesheet" href="static/css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <h1 class="logo">⚽ Football Scout Tool</h1>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="compare.html">Compare Players</a></li>
+                <li><a href="explore.html" class="active">Explore</a></li>
+                <li><a href="similar.html">Similar Players</a></li>
+                <li><a href="analysis.html">Analysis</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="container">
+        <section class="page-header">
+            <h1>Player Explorer</h1>
+            <p>Interactive scatter plots to explore relationships between different metrics</p>
+        </section>
+
+        <section class="filters-section">
+            <h2>Filters</h2>
+            <div class="filter-grid">
+                <div class="filter-group">
+                    <label for="position-filter">Position</label>
+                    <select id="position-filter" multiple>
+                        <option value="GK">Goalkeeper</option>
+                        <option value="DF">Defender</option>
+                        <option value="MF" selected>Midfielder</option>
+                        <option value="FW" selected>Forward</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="league-filter">League</label>
+                    <select id="league-filter" multiple>
+                        <option value="all" selected>All Leagues</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="x-metric">X-Axis Metric</label>
+                    <select id="x-metric">
+                        <option value="PrgC_per90" selected>Progressive Carries per 90</option>
+                        <option value="Gls_per90">Goals per 90</option>
+                        <option value="Ast_per90">Assists per 90</option>
+                        <option value="xG_per90">xG per 90</option>
+                        <option value="xAG_per90">xAG per 90</option>
+                        <option value="Tkl_per90">Tackles per 90</option>
+                        <option value="Touches_per90">Touches per 90</option>
+                        <option value="Cmp%">Pass Completion %</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="y-metric">Y-Axis Metric</label>
+                    <select id="y-metric">
+                        <option value="xGxAG_per90" selected>xG + xAG per 90</option>
+                        <option value="Gls_per90">Goals per 90</option>
+                        <option value="Ast_per90">Assists per 90</option>
+                        <option value="xG_per90">xG per 90</option>
+                        <option value="xAG_per90">xAG per 90</option>
+                        <option value="Tkl_per90">Tackles per 90</option>
+                        <option value="Touches_per90">Touches per 90</option>
+                        <option value="Cmp%">Pass Completion %</option>
+                    </select>
+                </div>
+            </div>
+            <button class="btn" onclick="updateScatterPlot()">Update Chart</button>
+        </section>
+
+        <section class="visualization-section">
+            <div id="scatter-plot"></div>
+        </section>
+
+        <section class="info-box">
+            <h3>Understanding the Metrics</h3>
+            <ul>
+                <li><strong>Progressive Carries:</strong> Number of times a player moves the ball significantly closer to the opponent's goal</li>
+                <li><strong>xG (Expected Goals):</strong> Quality of scoring chances created, based on historical data</li>
+                <li><strong>xAG (Expected Assisted Goals):</strong> Quality of chances created for teammates</li>
+                <li><strong>per 90:</strong> All metrics are normalized per 90 minutes played for fair comparison</li>
+            </ul>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Football Scout Tool | DS209 Final Project | UC Berkeley</p>
+        </div>
+    </footer>
+
+    <script src="static/js/explore.js"></script>
+</body>
+</html>

@@ -1,0 +1,13 @@
+# Berkeley iSchool server configuration
+Options +Indexes
+DirectoryIndex index.html
+
+# Enable CORS for data files
+<FilesMatch "\.(json|csv)$">
+    Header set Access-Control-Allow-Origin "*"
+</FilesMatch>
+
+# Cache control for static assets
+<FilesMatch "\.(css|js|html)$">
+    Header set Cache-Control "max-age=3600, public"
+</FilesMatch>
