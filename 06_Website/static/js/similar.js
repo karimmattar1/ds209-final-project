@@ -3,25 +3,75 @@ let playerData = [];
 
 document.addEventListener('DOMContentLoaded', function() {
     loadPlayerData();
+    setupAutocomplete();
 });
 
 async function loadPlayerData() {
     try {
         const response = await fetch('static/data/players_sample.json');
         playerData = await response.json();
-
-        // Populate player datalist
-        const datalist = document.getElementById('player-list-similar');
-        playerData.forEach(player => {
-            const option = document.createElement('option');
-            option.value = player.Player_Clean;
-            datalist.appendChild(option);
-        });
-
         console.log('Loaded ' + playerData.length + ' players');
     } catch (error) {
         console.error('Error loading player data:', error);
     }
+}
+
+function setupAutocomplete() {
+    const input = document.getElementById('player-search');
+    const dropdownId = 'player-search-dropdown';
+
+    // Create dropdown container
+    const dropdown = document.createElement('div');
+    dropdown.id = dropdownId;
+    dropdown.className = 'autocomplete-dropdown';
+    dropdown.style.display = 'none';
+    input.parentNode.appendChild(dropdown);
+
+    // Input event listener
+    input.addEventListener('input', function() {
+        const query = this.value.toLowerCase().trim();
+
+        if (query.length < 2) {
+            dropdown.style.display = 'none';
+            return;
+        }
+
+        // Filter players
+        const matches = playerData.filter(p =>
+            p.Player_Clean.toLowerCase().includes(query)
+        ).slice(0, 10); // Limit to 10 results
+
+        if (matches.length === 0) {
+            dropdown.style.display = 'none';
+            return;
+        }
+
+        // Populate dropdown
+        dropdown.innerHTML = matches.map(player => `
+            <div class="autocomplete-item" data-player="${player.Player_Clean}">
+                <div class="player-name">${player.Player_Clean}</div>
+                <div class="player-info">${player.Squad} • ${player.Comp} • ${player.Position}</div>
+            </div>
+        `).join('');
+
+        dropdown.style.display = 'block';
+
+        // Add click listeners to dropdown items
+        dropdown.querySelectorAll('.autocomplete-item').forEach(item => {
+            item.addEventListener('click', function() {
+                const playerName = this.dataset.player;
+                input.value = playerName;
+                dropdown.style.display = 'none';
+            });
+        });
+    });
+
+    // Close dropdown when clicking outside
+    document.addEventListener('click', function(e) {
+        if (!input.contains(e.target) && !dropdown.contains(e.target)) {
+            dropdown.style.display = 'none';
+        }
+    });
 }
 
 function findSimilarPlayers() {

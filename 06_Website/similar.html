@@ -34,7 +34,7 @@
             <div class="filter-grid">
                 <div class="filter-group">
                     <label for="player-search">Player Name</label>
-                    <input type="text" id="player-search" list="player-list-similar" placeholder="Search player name...">
+                    <input type="text" id="player-search" placeholder="Type to search (e.g., Haaland)..." autocomplete="off">
                 </div>
                 <div class="filter-group">
                     <label for="position-filter-similar">Filter by Position</label>
@@ -44,7 +44,6 @@
                     </select>
                 </div>
             </div>
-            <datalist id="player-list-similar"></datalist>
             <button class="btn" onclick="findSimilarPlayers()">Find Similar Players</button>
         </section>
 

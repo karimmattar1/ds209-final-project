@@ -34,14 +34,13 @@
             <div class="filter-grid">
                 <div class="filter-group">
                     <label for="player1">Player 1</label>
-                    <input type="text" id="player1" list="player-list" placeholder="Search player name...">
+                    <input type="text" id="player1" placeholder="Type to search (e.g., Salah)..." autocomplete="off">
                 </div>
                 <div class="filter-group">
                     <label for="player2">Player 2</label>
-                    <input type="text" id="player2" list="player-list" placeholder="Search player name...">
+                    <input type="text" id="player2" placeholder="Type to search (e.g., Mbappe)..." autocomplete="off">
                 </div>
             </div>
-            <datalist id="player-list"></datalist>
             <button class="btn" onclick="comparePlayer()">Compare</button>
         </section>
 
