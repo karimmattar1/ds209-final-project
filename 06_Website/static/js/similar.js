@@ -27,43 +27,36 @@ function setupAutocomplete() {
     dropdown.style.display = 'none';
     input.parentNode.appendChild(dropdown);
 
+    // Show suggestions on focus (even without typing)
+    input.addEventListener('focus', function() {
+        if (playerData.length > 0 && this.value.length < 2) {
+            showSuggestedPlayers(dropdown, input);
+        }
+    });
+
     // Input event listener
     input.addEventListener('input', function() {
         const query = this.value.toLowerCase().trim();
 
         if (query.length < 2) {
-            dropdown.style.display = 'none';
+            // Show suggested players when input is cleared
+            showSuggestedPlayers(dropdown, input);
             return;
         }
 
-        // Filter players
+        // Filter players by search query
         const matches = playerData.filter(p =>
             p.Player_Clean.toLowerCase().includes(query)
         ).slice(0, 10); // Limit to 10 results
 
         if (matches.length === 0) {
-            dropdown.style.display = 'none';
+            dropdown.innerHTML = '<div class="autocomplete-item" style="color: #6b7280;">No players found</div>';
+            dropdown.style.display = 'block';
             return;
         }
 
-        // Populate dropdown
-        dropdown.innerHTML = matches.map(player => `
-            <div class="autocomplete-item" data-player="${player.Player_Clean}">
-                <div class="player-name">${player.Player_Clean}</div>
-                <div class="player-info">${player.Squad} • ${player.Comp} • ${player.Position}</div>
-            </div>
-        `).join('');
-
-        dropdown.style.display = 'block';
-
-        // Add click listeners to dropdown items
-        dropdown.querySelectorAll('.autocomplete-item').forEach(item => {
-            item.addEventListener('click', function() {
-                const playerName = this.dataset.player;
-                input.value = playerName;
-                dropdown.style.display = 'none';
-            });
-        });
+        // Populate dropdown with search results
+        populateDropdown(dropdown, matches, input);
     });
 
     // Close dropdown when clicking outside
@@ -71,6 +64,49 @@ function setupAutocomplete() {
         if (!input.contains(e.target) && !dropdown.contains(e.target)) {
             dropdown.style.display = 'none';
         }
+    });
+}
+
+function showSuggestedPlayers(dropdown, input) {
+    // Show a mix of popular players from different leagues/positions
+    const popularPlayers = playerData
+        .filter(p => p.Gls_per90 > 0.2 || p.Ast_per90 > 0.15 || p.PrgC_per90 > 3)
+        .sort(() => Math.random() - 0.5)
+        .slice(0, 10);
+
+    if (popularPlayers.length === 0) return;
+
+    dropdown.innerHTML = '<div style="padding: 0.5rem 1rem; color: #6b7280; font-size: 0.85rem; border-bottom: 1px solid #e5e7eb;">Suggested players (click to select):</div>' +
+        popularPlayers.map(player => `
+            <div class="autocomplete-item" data-player="${player.Player_Clean}">
+                <div class="player-name">${player.Player_Clean}</div>
+                <div class="player-info">${player.Squad} • ${player.Comp} • ${player.Position}</div>
+            </div>
+        `).join('');
+
+    dropdown.style.display = 'block';
+    addDropdownClickListeners(dropdown, input);
+}
+
+function populateDropdown(dropdown, players, input) {
+    dropdown.innerHTML = players.map(player => `
+        <div class="autocomplete-item" data-player="${player.Player_Clean}">
+            <div class="player-name">${player.Player_Clean}</div>
+            <div class="player-info">${player.Squad} • ${player.Comp} • ${player.Position}</div>
+        </div>
+    `).join('');
+
+    dropdown.style.display = 'block';
+    addDropdownClickListeners(dropdown, input);
+}
+
+function addDropdownClickListeners(dropdown, input) {
+    dropdown.querySelectorAll('.autocomplete-item[data-player]').forEach(item => {
+        item.addEventListener('click', function() {
+            const playerName = this.dataset.player;
+            input.value = playerName;
+            dropdown.style.display = 'none';
+        });
     });
 }
 

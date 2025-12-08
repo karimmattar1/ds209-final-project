@@ -1,4 +1,4 @@
-// Analysis page JavaScript
+// Analysis page JavaScript - Top Players Ranking
 let playerData = [];
 
 // Load data on page load
@@ -43,61 +43,60 @@ async function populateFilters() {
 function updateAnalysisChart() {
     const positionFilter = document.getElementById('position-filter');
     const leagueFilter = document.getElementById('league-filter');
-    const xMetric = document.getElementById('x-metric').value;
-    const yMetric = document.getElementById('y-metric').value;
+    const rankMetric = document.getElementById('rank-metric').value;
+    const topN = parseInt(document.getElementById('top-n').value);
 
     // Get selected values
     const selectedPositions = Array.from(positionFilter.selectedOptions).map(opt => opt.value);
     const selectedLeagues = Array.from(leagueFilter.selectedOptions).map(opt => opt.value);
 
-    // Get filter values (age and metric threshold)
+    // Get age filter
     const maxAge = parseFloat(document.getElementById('age-filter').value) || 99;
-    const minMetric = parseFloat(document.getElementById('metric-min').value) || 0;
 
     // Filter data
     let filteredData = playerData.filter(player => {
         const positionMatch = selectedPositions.length === 0 || selectedPositions.includes(player.Position);
         const leagueMatch = selectedLeagues.length === 0 || selectedLeagues.includes('all') || selectedLeagues.includes(player.Comp);
         const ageMatch = !player.Age || player.Age <= maxAge;
-        const metricMatch = (player[xMetric] || 0) >= minMetric;
-        return positionMatch && leagueMatch && ageMatch && metricMatch;
+        return positionMatch && leagueMatch && ageMatch;
     });
 
+    // Sort by selected metric (descending) and take top N
+    filteredData.sort((a, b) => (b[rankMetric] || 0) - (a[rankMetric] || 0));
+    const topPlayers = filteredData.slice(0, topN);
+
     // Update results count
-    document.getElementById('results-count').textContent = 'Showing ' + filteredData.length + ' players';
+    document.getElementById('results-count').textContent = 'Found ' + filteredData.length + ' players, showing top ' + topPlayers.length;
 
-    console.log('Filtered to ' + filteredData.length + ' players');
+    console.log('Showing top ' + topPlayers.length + ' of ' + filteredData.length + ' players');
 
-    // Create Vega-Lite spec
+    // Create horizontal bar chart spec
     const spec = {
         "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-        "width": 700,
-        "height": 500,
-        "data": {"values": filteredData},
+        "width": 600,
+        "height": topN * 28,
+        "data": {"values": topPlayers},
         "mark": {
-            "type": "circle",
-            "size": 100,
-            "opacity": 0.7
-        },
-        "selection": {
-            "hover": {
-                "type": "single",
-                "on": "mouseover",
-                "empty": "none"
-            }
+            "type": "bar",
+            "cornerRadiusEnd": 4
         },
         "encoding": {
-            "x": {
-                "field": xMetric,
-                "type": "quantitative",
-                "title": formatMetricName(xMetric),
-                "scale": {"zero": false}
-            },
             "y": {
-                "field": yMetric,
+                "field": "Player_Clean",
+                "type": "nominal",
+                "title": null,
+                "sort": {
+                    "field": rankMetric,
+                    "order": "descending"
+                },
+                "axis": {
+                    "labelLimit": 150
+                }
+            },
+            "x": {
+                "field": rankMetric,
                 "type": "quantitative",
-                "title": formatMetricName(yMetric),
-                "scale": {"zero": false}
+                "title": formatMetricName(rankMetric)
             },
             "color": {
                 "field": "Position",
@@ -108,26 +107,25 @@ function updateAnalysisChart() {
                     "range": ["#FDB913", "#00A650", "#0072CE", "#EF3340"]
                 }
             },
-            "opacity": {
-                "condition": {"selection": "hover", "value": 1},
-                "value": 0.7
-            },
             "tooltip": [
                 {"field": "Player_Clean", "type": "nominal", "title": "Player"},
                 {"field": "Squad", "type": "nominal", "title": "Team"},
                 {"field": "Comp", "type": "nominal", "title": "League"},
                 {"field": "Position", "type": "nominal", "title": "Position"},
                 {"field": "Age", "type": "quantitative", "title": "Age"},
-                {"field": xMetric, "type": "quantitative", "title": formatMetricName(xMetric), "format": ".2f"},
-                {"field": yMetric, "type": "quantitative", "title": formatMetricName(yMetric), "format": ".2f"}
+                {"field": rankMetric, "type": "quantitative", "title": formatMetricName(rankMetric), "format": ".2f"}
             ]
         },
         "title": {
-            "text": formatMetricName(yMetric) + " vs " + formatMetricName(xMetric),
+            "text": "Top " + topPlayers.length + " Players by " + formatMetricName(rankMetric),
             "fontSize": 16
         },
         "config": {
-            "view": {"strokeWidth": 0}
+            "view": {"strokeWidth": 0},
+            "axis": {
+                "labelFontSize": 12,
+                "titleFontSize": 13
+            }
         }
     };
 
