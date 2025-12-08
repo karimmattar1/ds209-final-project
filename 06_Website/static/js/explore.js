@@ -50,12 +50,21 @@ function updateScatterPlot() {
     const selectedPositions = Array.from(positionFilter.selectedOptions).map(opt => opt.value);
     const selectedLeagues = Array.from(leagueFilter.selectedOptions).map(opt => opt.value);
 
+    // Get new filter values (age and metric threshold)
+    const maxAge = parseFloat(document.getElementById('age-filter').value) || 99;
+    const minMetric = parseFloat(document.getElementById('metric-min').value) || 0;
+
     // Filter data
     let filteredData = playerData.filter(player => {
         const positionMatch = selectedPositions.length === 0 || selectedPositions.includes(player.Position);
         const leagueMatch = selectedLeagues.length === 0 || selectedLeagues.includes('all') || selectedLeagues.includes(player.Comp);
-        return positionMatch && leagueMatch;
+        const ageMatch = !player.Age || player.Age <= maxAge;
+        const metricMatch = (player[xMetric] || 0) >= minMetric;
+        return positionMatch && leagueMatch && ageMatch && metricMatch;
     });
+
+    // Update results count
+    document.getElementById('results-count').textContent = 'Showing ' + filteredData.length + ' players';
 
     console.log('Filtered to ' + filteredData.length + ' players');
 
