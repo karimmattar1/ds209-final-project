@@ -35,11 +35,16 @@ chart = viz.create_scatter_explorer(
 )
 chart.save('static/charts/league_scatter.html')
 
-# 2. Position distribution
+# 2. Position distribution - use position-appropriate metrics
 print("Generating position analysis...")
-positions = ['GK', 'DF', 'MF', 'FW']
-for pos in positions:
-    chart = viz.create_top_players_chart(df, 'Gls_per90', n=15, position=pos)
+position_metrics = {
+    'GK': 'Save%',      # Goalkeepers ranked by Save Percentage
+    'DF': 'Tkl_per90',  # Defenders ranked by Tackles per 90
+    'MF': 'PrgC_per90', # Midfielders ranked by Progressive Carries per 90
+    'FW': 'Gls_per90'   # Forwards ranked by Goals per 90
+}
+for pos, metric in position_metrics.items():
+    chart = viz.create_top_players_chart(df, metric, n=15, position=pos)
     chart.save(f'static/charts/top_{pos.lower()}.html')
 
 # 3. League comparison box plots
